@@ -4,8 +4,6 @@ export default defineType({
   name: "siteConfig",
   title: "Configuration du site",
   type: "document",
-  // Singleton — un seul document
-  __experimental_actions: ["update", "publish"],
   fields: [
     defineField({
       name: "email",
