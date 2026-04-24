@@ -3,10 +3,10 @@ import { Resend } from "resend";
 import { z } from "zod";
 
 const schema = z.object({
-  nom: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
-  email: z.string().email("Email invalide"),
-  sujet: z.string().min(1, "Le sujet est requis"),
-  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
+  nom: z.string().min(2),
+  email: z.string().email(),
+  sujet: z.string().min(1),
+  message: z.string().min(10),
 });
 
 export async function POST(req: NextRequest) {
@@ -15,8 +15,9 @@ export async function POST(req: NextRequest) {
     const result = schema.safeParse(body);
 
     if (!result.success) {
+      console.error("[contact] Validation error:", JSON.stringify(result.error.issues));
       return NextResponse.json(
-        { error: "Données invalides", details: result.error.flatten() },
+        { error: "Données invalides" },
         { status: 400 }
       );
     }
