@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     await resend.emails.send({
-      from: "Kayiratech <onboarding@resend.dev>",
+      from: "Kayiratech <contact@kayiratech.com>",
       to: process.env.CONTACT_EMAIL ?? "contact@kayiratech.com",
       replyTo: email,
       subject: `[Contact Kayiratech] ${sujet}`,
