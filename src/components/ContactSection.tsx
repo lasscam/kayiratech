@@ -16,12 +16,14 @@ const SUBJECTS = [
 ];
 
 type FormState = "idle" | "loading" | "success" | "error";
+type FormError = string | null;
 
 export default function ContactSection({ config }: Props) {
   const email = config?.email ?? "contact@kayiratech.com";
   const telephone = config?.telephone ?? "+1 (514) 000-0000";
 
   const [formState, setFormState] = useState<FormState>("idle");
+  const [errorMsg, setErrorMsg] = useState<FormError>(null);
   const [form, setForm] = useState({
     nom: "",
     email: "",
@@ -46,10 +48,16 @@ export default function ContactSection({ config }: Props) {
         body: JSON.stringify(form),
       });
 
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setErrorMsg(data.error ?? "Une erreur est survenue. Veuillez réessayer.");
+        setFormState("error");
+        return;
+      }
       setFormState("success");
       setForm({ nom: "", email: "", sujet: SUBJECTS[0], message: "" });
     } catch {
+      setErrorMsg("Une erreur est survenue. Veuillez réessayer.");
       setFormState("error");
     }
   };
@@ -152,7 +160,12 @@ export default function ContactSection({ config }: Props) {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-500 ml-1">Message</label>
+                    <div className="flex justify-between items-center ml-1">
+                      <label className="text-sm font-bold text-slate-500">Message</label>
+                      <span className={`text-xs ${form.message.length < 10 ? "text-slate-400" : "text-green-500"}`}>
+                        {form.message.length}/10 min
+                      </span>
+                    </div>
                     <textarea
                       name="message"
                       placeholder="Comment pouvons-nous vous aider ?"
@@ -160,14 +173,13 @@ export default function ContactSection({ config }: Props) {
                       value={form.message}
                       onChange={handleChange}
                       required
+                      minLength={10}
                       className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[var(--color-primary)]/20 text-[var(--color-on-surface)] outline-none resize-none"
                     />
                   </div>
 
                   {formState === "error" && (
-                    <p className="text-red-500 text-sm">
-                      Une erreur est survenue. Veuillez réessayer.
-                    </p>
+                    <p className="text-red-500 text-sm">{errorMsg}</p>
                   )}
 
                   <button
