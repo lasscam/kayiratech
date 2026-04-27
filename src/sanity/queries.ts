@@ -26,6 +26,8 @@ export type SiteConfig = {
   adresse?: string;
   linkedin?: string;
   twitter?: string;
+  heroImages?: { url: string; alt?: string }[];
+  aboutImages?: { url: string; alt?: string }[];
 };
 
 export async function getServices(): Promise<Service[]> {
@@ -49,7 +51,9 @@ export async function getSolutions(): Promise<Solution[]> {
 export async function getSiteConfig(): Promise<SiteConfig | null> {
   return client.fetch(
     `*[_type == "siteConfig"][0] {
-      email, telephone, adresse, linkedin, twitter
+      email, telephone, adresse, linkedin, twitter,
+      heroImages[] { "url": asset->url, alt },
+      aboutImages[] { "url": asset->url, alt }
     }`
   );
 }

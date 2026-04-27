@@ -27,9 +27,9 @@ export default async function Home() {
       />
       <Navbar />
       <main>
-        <HeroSection />
+        <HeroSection config={configData} />
         <ServicesSection services={servicesData} />
-        <AboutSection />
+        <AboutSection config={configData} />
         <ContactSection config={configData} />
       </main>
       <Footer config={configData} />

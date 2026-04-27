@@ -29,6 +29,44 @@ export default defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: "heroImages",
+      title: "Images carousel (Hero)",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              title: "Texte alternatif",
+              type: "string",
+            }),
+          ],
+        },
+      ],
+      validation: (Rule) => Rule.max(3),
+    }),
+    defineField({
+      name: "aboutImages",
+      title: "Images section À propos",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              title: "Texte alternatif",
+              type: "string",
+            }),
+          ],
+        },
+      ],
+      validation: (Rule) => Rule.max(2),
+    }),
+    defineField({
       name: "linkedin",
       title: "URL LinkedIn",
       type: "url",
