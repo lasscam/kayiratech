@@ -2,26 +2,18 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { SiteConfig } from "@/sanity/queries";
 
-const slides = [
-  {
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBUWsdNmKuEaxzZZ0jqya_oMyiSqeVGJkKZZrSrgYWX4hGCByFE2ujhLHR6AST5GEZQxu5I1OiNAOfhTABSGOG4mZWsb276fopDQeAKG9s4GtLrkSQZKqvoL3snM1Jh7gRN0g5sl7sKOU3UOSCH6jaRDmMTPyzFchxhkZv0-sZxikk05qxogqqaGZXPUgF6Y7DGpHvscbAYiC49-b_UDqQFaHOyg158IgVP0_Tmskk5NTrhAbYMcriGrf_NRv58LpUwQyEx7sQVk4Xp",
-    alt: "Modern high-tech digital transformation visual",
-  },
-  {
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBog4sRSUAzab58aUKImGwktfjzxFJtJ1cVnqtXzQYdiqGm2VDQpL1t5LDiMl4KFGvyBRNs0HkErSY9IbdZfLSaGQtJCrW2eCYuijw11OVQdloFLBet6H799ijjt68nmUL_k4XkoORAiDpe0Vhh-CCLS1qLNLDCESDRYUTpMaouWUvCpX1rmBeEIyv6fnnXD_HvsPMLZpPVE7oNUhTrP-3Yd0LqvAk8sgki-jWoXGkCjatyJSs_2CwG-0a0rT-2oS1wm8S4VOogEdPX",
-    alt: "Cybersecurity and cloud infrastructure visual",
-  },
-  {
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuC4l1dPvWgPMJP9Yi6Au8SBoW4pOxxPIOKG432EvgLmPciC9Zgop-d_Ydg7u9fTT0ySFDOPHii49iNmJvdwICcJYO3CJb2xy7-IuLxUh_cxXkXgs0A4TcSj8SRZoLMu6TC_Cg0xL9l2YebCXVDA2gwBoyRvN9a20ZhPKxWphCye8SzhwsWEPiOB30wOlzoqwAMsdpd23icj_yIpvgSzA3u9yToIRKEKOghvNjTpIwIYO7QnGaKNoowogVsbZ7oqiDeUmYbRjrQT8Fnp",
-    alt: "Advanced software development and coding interface",
-  },
+const FALLBACK_SLIDES = [
+  { url: "https://lh3.googleusercontent.com/aida-public/AB6AXuBUWsdNmKuEaxzZZ0jqya_oMyiSqeVGJkKZZrSrgYWX4hGCByFE2ujhLHR6AST5GEZQxu5I1OiNAOfhTABSGOG4mZWsb276fopDQeAKG9s4GtLrkSQZKqvoL3snM1Jh7gRN0g5sl7sKOU3UOSCH6jaRDmMTPyzFchxhkZv0-sZxikk05qxogqqaGZXPUgF6Y7DGpHvscbAYiC49-b_UDqQFaHOyg158IgVP0_Tmskk5NTrhAbYMcriGrf_NRv58LpUwQyEx7sQVk4Xp", alt: "Modern high-tech digital transformation visual" },
+  { url: "https://lh3.googleusercontent.com/aida-public/AB6AXuBog4sRSUAzab58aUKImGwktfjzxFJtJ1cVnqtXzQYdiqGm2VDQpL1t5LDiMl4KFGvyBRNs0HkErSY9IbdZfLSaGQtJCrW2eCYuijw11OVQdloFLBet6H799ijjt68nmUL_k4XkoORAiDpe0Vhh-CCLS1qLNLDCESDRYUTpMaouWUvCpX1rmBeEIyv6fnnXD_HvsPMLZpPVE7oNUhTrP-3Yd0LqvAk8sgki-jWoXGkCjatyJSs_2CwG-0a0rT-2oS1wm8S4VOogEdPX", alt: "Cybersecurity and cloud infrastructure visual" },
+  { url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC4l1dPvWgPMJP9Yi6Au8SBoW4pOxxPIOKG432EvgLmPciC9Zgop-d_Ydg7u9fTT0ySFDOPHii49iNmJvdwICcJYO3CJb2xy7-IuLxUh_cxXkXgs0A4TcSj8SRZoLMu6TC_Cg0xL9l2YebCXVDA2gwBoyRvN9a20ZhPKxWphCye8SzhwsWEPiOB30wOlzoqwAMsdpd23icj_yIpvgSzA3u9yToIRKEKOghvNjTpIwIYO7QnGaKNoowogVsbZ7oqiDeUmYbRjrQT8Fnp", alt: "Advanced software development and coding interface" },
 ];
 
-// Note: ces images sont hébergées sur Google et peuvent expirer.
-// Remplace-les par des images uploadées dans Sanity dès que possible.
+type Props = { config: SiteConfig | null };
 
-export default function HeroSection() {
+export default function HeroSection({ config }: Props) {
+  const slides = config?.heroImages?.length ? config.heroImages : FALLBACK_SLIDES;
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -87,8 +79,8 @@ export default function HeroSection() {
                 style={{ opacity: i === current ? 1 : 0 }}
               >
                 <Image
-                  src={slide.src}
-                  alt={slide.alt}
+                  src={slide.url}
+                  alt={slide.alt ?? "Kayiratech"}
                   fill
                   className="object-cover"
                   priority
