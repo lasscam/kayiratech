@@ -36,7 +36,7 @@ export default function HeroSection({ config }: Props) {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-primary)] opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-primary)]" />
             </span>
-            Innovation Digital
+            Innovation Digitale
           </div>
 
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-[var(--color-on-surface)] leading-[1.1]">
