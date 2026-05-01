@@ -67,8 +67,10 @@ export default function Navbar() {
 
         {/* Hamburger — mobile */}
         <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10"
+          type="button"
+          onTouchEnd={(e) => { e.preventDefault(); setMenuOpen((v) => !v); }}
+          onClick={() => setMenuOpen((v) => !v)}
+          className="md:hidden flex flex-col justify-center items-center gap-1.5 w-12 h-12 touch-manipulation cursor-pointer select-none"
           aria-label="Menu"
         >
           <span className={`block w-6 h-0.5 bg-slate-800 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
