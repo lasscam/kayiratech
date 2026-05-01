@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const links = [
   { label: "Home", href: "#" },
@@ -24,19 +25,20 @@ export default function Navbar() {
         scrolled ? "shadow-sm" : ""
       } bg-white/80 backdrop-blur-xl`}
     >
-      <div className="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+      <div className="grid grid-cols-3 items-center max-w-7xl mx-auto px-8 h-20">
         {/* Logo */}
-        <div className="flex items-center gap-2 select-none cursor-default">
-          <span className="material-symbols-outlined text-[var(--color-primary)] text-3xl font-bold">
-            code
-          </span>
-          <span className="text-3xl font-black tracking-tighter text-slate-800 font-[var(--font-manrope)]">
-            Kayiratech
-          </span>
-        </div>
+        <a href="#" className="flex items-center select-none">
+          <Image
+            src="/logo-kayiratech.png"
+            alt="Kayiratech"
+            width={130}
+            height={52}
+            className="object-contain"
+          />
+        </a>
 
         {/* Nav links */}
-        <div className="hidden md:flex items-center gap-10 font-semibold font-[var(--font-manrope)] tracking-tight">
+        <div className="hidden md:flex items-center justify-center gap-10 font-semibold font-[var(--font-manrope)] tracking-tight">
           {links.map(({ label, href }) => (
             <a
               key={label}
@@ -54,12 +56,14 @@ export default function Navbar() {
         </div>
 
         {/* CTA */}
-        <a
-          href="#contact"
-          className="bg-[var(--color-primary)] text-white px-6 py-2.5 rounded-xl font-semibold scale-95 active:scale-90 duration-200 transition-all hover:bg-[var(--color-primary-container)]"
-        >
-          Contactez-nous
-        </a>
+        <div className="flex justify-end">
+          <a
+            href="#contact"
+            className="bg-[var(--color-primary)] text-white px-6 py-2.5 rounded-xl font-semibold scale-95 active:scale-90 duration-200 transition-all hover:bg-[var(--color-primary-container)]"
+          >
+            Contactez-nous
+          </a>
+        </div>
       </div>
     </nav>
   );
