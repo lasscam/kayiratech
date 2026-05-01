@@ -12,6 +12,7 @@ const links = [
 export default function Navbar() {
   const [active, setActive] = useState("Home");
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -25,7 +26,8 @@ export default function Navbar() {
         scrolled ? "shadow-sm" : ""
       } bg-white/80 backdrop-blur-xl`}
     >
-      <div className="grid grid-cols-3 items-center max-w-7xl mx-auto px-8 h-20">
+      {/* Desktop & mobile top bar */}
+      <div className="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
         {/* Logo */}
         <a href="#" className="flex items-center select-none">
           <Image
@@ -37,8 +39,8 @@ export default function Navbar() {
           />
         </a>
 
-        {/* Nav links */}
-        <div className="hidden md:flex items-center justify-center gap-10 font-semibold font-[var(--font-manrope)] tracking-tight">
+        {/* Nav links — desktop */}
+        <div className="hidden md:flex items-center gap-10 font-semibold font-[var(--font-manrope)] tracking-tight">
           {links.map(({ label, href }) => (
             <a
               key={label}
@@ -55,16 +57,52 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="flex justify-end">
+        {/* CTA — desktop */}
+        <a
+          href="#contact"
+          className="hidden md:inline-block bg-[var(--color-primary)] text-white px-6 py-2.5 rounded-xl font-semibold scale-95 active:scale-90 duration-200 transition-all hover:bg-[var(--color-primary-container)]"
+        >
+          Contactez-nous
+        </a>
+
+        {/* Hamburger — mobile */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10"
+          aria-label="Menu"
+        >
+          <span className={`block w-6 h-0.5 bg-slate-800 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+          <span className={`block w-6 h-0.5 bg-slate-800 transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+          <span className={`block w-6 h-0.5 bg-slate-800 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 px-8 py-6 flex flex-col gap-6 font-semibold font-[var(--font-manrope)]">
+          {links.map(({ label, href }) => (
+            <a
+              key={label}
+              href={href}
+              onClick={() => { setActive(label); setMenuOpen(false); }}
+              className={`text-lg transition-colors ${
+                active === label
+                  ? "text-[var(--color-primary)]"
+                  : "text-slate-700"
+              }`}
+            >
+              {label}
+            </a>
+          ))}
           <a
             href="#contact"
-            className="bg-[var(--color-primary)] text-white px-6 py-2.5 rounded-xl font-semibold scale-95 active:scale-90 duration-200 transition-all hover:bg-[var(--color-primary-container)]"
+            onClick={() => setMenuOpen(false)}
+            className="bg-[var(--color-primary)] text-white text-center px-6 py-3 rounded-xl font-semibold transition-all hover:bg-[var(--color-primary-container)]"
           >
             Contactez-nous
           </a>
         </div>
-      </div>
+      )}
     </nav>
   );
 }
