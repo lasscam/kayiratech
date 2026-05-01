@@ -79,7 +79,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 px-8 py-6 flex flex-col gap-6 font-semibold font-[var(--font-manrope)]">
+        <div className="md:hidden bg-white border-t border-slate-100 px-8 py-6 flex flex-col gap-6 font-semibold font-[var(--font-manrope)]">
           {links.map(({ label, href }) => (
             <a
               key={label}
