@@ -24,7 +24,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 w-full z-50 transition-shadow duration-300 ${
         scrolled ? "shadow-sm" : ""
-      } bg-white/80 backdrop-blur-xl`}
+      } bg-white md:bg-white/80 md:backdrop-blur-xl`}
     >
       {/* Desktop & mobile top bar */}
       <div className="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
