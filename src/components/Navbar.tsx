@@ -26,7 +26,15 @@ export default function Navbar() {
         scrolled ? "shadow-sm" : ""
       } bg-white md:bg-white/80 md:backdrop-blur-xl`}
     >
-      {/* Desktop & mobile top bar */}
+      {/* Checkbox invisible — toggle fiable sur iOS Safari */}
+      <input
+        type="checkbox"
+        id="nav-mobile"
+        className="sr-only"
+        checked={menuOpen}
+        onChange={(e) => setMenuOpen(e.target.checked)}
+      />
+
       <div className="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
         {/* Logo */}
         <a href="#" className="flex items-center select-none">
@@ -65,18 +73,16 @@ export default function Navbar() {
           Contactez-nous
         </a>
 
-        {/* Hamburger — mobile */}
-        <button
-          type="button"
-          onTouchEnd={(e) => { e.preventDefault(); setMenuOpen((v) => !v); }}
-          onClick={() => setMenuOpen((v) => !v)}
-          className="md:hidden flex flex-col justify-center items-center gap-1.5 w-12 h-12 touch-manipulation cursor-pointer select-none"
+        {/* Hamburger — mobile (label lié au checkbox, toujours fiable sur iOS) */}
+        <label
+          htmlFor="nav-mobile"
+          className="md:hidden flex flex-col justify-center items-center gap-1.5 w-12 h-12 cursor-pointer select-none"
           aria-label="Menu"
         >
           <span className={`block w-6 h-0.5 bg-slate-800 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
           <span className={`block w-6 h-0.5 bg-slate-800 transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
           <span className={`block w-6 h-0.5 bg-slate-800 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-        </button>
+        </label>
       </div>
 
       {/* Mobile menu */}
