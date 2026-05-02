@@ -40,7 +40,7 @@ export async function getServices(): Promise<Service[]> {
 
 export async function getSolutions(): Promise<Solution[]> {
   return client.fetch(
-    `*[_type == "solution" && statut != "archive"] | order(ordre asc) {
+    `*[_type == "solution" && statut == "disponible"] | order(ordre asc) {
       _id, titre, slug, description, lien,
       logo { asset -> { url } },
       tags, statut, ordre
