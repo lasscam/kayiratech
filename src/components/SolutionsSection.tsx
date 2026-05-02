@@ -74,7 +74,7 @@ export default function SolutionsSection({ solutions }: Props) {
                   </div>
                 )}
 
-                {solution.lien ? (
+                {solution.lien && (
                   <a
                     href={solution.lien}
                     target="_blank"
@@ -84,11 +84,6 @@ export default function SolutionsSection({ solutions }: Props) {
                     En savoir plus
                     <span className="material-symbols-outlined">arrow_forward</span>
                   </a>
-                ) : (
-                  <span className="flex items-center text-slate-400 font-bold gap-2 text-sm">
-                    <span className="material-symbols-outlined text-base">schedule</span>
-                    Prochainement
-                  </span>
                 )}
               </div>
             ))}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SiteConfig } from "@/sanity/queries";
 
 type Props = {
@@ -13,18 +14,20 @@ export default function Footer({ config }: Props) {
       <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Brand */}
         <div className="space-y-6">
-          <div className="flex items-center gap-2 mb-6 select-none cursor-default">
-            <span className="material-symbols-outlined text-[var(--color-primary)] text-2xl font-bold">
-              code
-            </span>
-            <span className="text-2xl font-black tracking-tighter text-slate-800">
-              Kayiratech
-            </span>
+          <div className="space-y-3">
+            <div className="select-none">
+              <Image
+                src="/logo-kayiratech.png"
+                alt="Kayiratech"
+                width={100}
+                height={40}
+                className="object-contain mix-blend-multiply"
+              />
+            </div>
+            <p className="text-sm text-slate-500 leading-relaxed">
+              Architecture IT & transformation digitale de haute précision.
+            </p>
           </div>
-          <p className="text-sm text-slate-500 leading-relaxed">
-            Experts en architecture IT et transformation digitale de haute
-            précision. Nous bâtissons les fondations de votre succès futur.
-          </p>
           <div className="flex gap-4">
             {config?.linkedin && (
               <a
