@@ -15,7 +15,7 @@ type Props = {
 
 export default function SolutionsSection({ solutions }: Props) {
   return (
-    <section className="pt-14 pb-4 bg-slate-50" id="solutions">
+    <section className="pt-14 pb-4 bg-slate-50 scroll-mt-20" id="solutions">
       <div className="max-w-7xl mx-auto px-8">
         <div className="mb-4">
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--color-on-surface)] mb-6">

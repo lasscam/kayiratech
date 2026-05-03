@@ -4,16 +4,22 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const links = [
-  { label: "Home", href: "#" },
-  { label: "Services", href: "#expertise" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "About", href: "#about" },
+  { label: "Accueil", href: "/" },
+  { label: "Services", href: "/#expertise" },
+  { label: "Solutions", href: "/#solutions" },
+  { label: "À propos", href: "/#about" },
 ];
 
 export default function Navbar() {
-  const [active, setActive] = useState("Home");
+  const [active, setActive] = useState("Accueil");
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const current = window.location.pathname + window.location.hash;
+    const found = links.find((l) => l.href === current);
+    if (found) setActive(found.label);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -38,7 +44,7 @@ export default function Navbar() {
 
       <div className="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
         {/* Logo */}
-        <a href="#" className="flex items-center select-none">
+        <a href="/" className="flex items-center select-none">
           <Image
             src="/logo-kayiratech.png"
             alt="Kayiratech"

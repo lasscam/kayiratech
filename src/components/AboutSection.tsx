@@ -11,7 +11,7 @@ type Props = { config: SiteConfig | null };
 export default function AboutSection({ config }: Props) {
   const images = config?.aboutImages?.length ? config.aboutImages : FALLBACK_IMAGES;
   return (
-    <section className="py-40" id="about">
+    <section className="py-40 scroll-mt-20" id="about">
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           {/* Images */}

@@ -16,7 +16,7 @@ export default function ServicesSection({ services }: Props) {
   const items = services.length > 0 ? services : FALLBACK_SERVICES;
 
   return (
-    <section className="py-32 bg-white" id="expertise">
+    <section className="py-32 bg-white scroll-mt-20" id="expertise">
       <div className="max-w-7xl mx-auto px-8">
         <div className="mb-20">
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--color-on-surface)] mb-6">

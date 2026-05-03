@@ -63,7 +63,7 @@ export default function ContactSection({ config }: Props) {
   };
 
   return (
-    <section className="py-32 bg-slate-50" id="contact">
+    <section className="py-32 bg-slate-50 scroll-mt-20" id="contact">
       <div className="max-w-7xl mx-auto px-8">
         <div className="bg-[var(--color-primary)] rounded-[40px] p-8 md:p-20 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
@@ -85,7 +85,9 @@ export default function ContactSection({ config }: Props) {
                   </div>
                   <div>
                     <div className="text-sm opacity-60">Email</div>
-                    <div className="text-lg font-bold">{email}</div>
+                    <a href={`mailto:${email}`} className="text-lg font-bold hover:underline">
+                      {email}
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-center gap-6 text-white">

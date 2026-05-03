@@ -15,7 +15,7 @@ export default function Footer({ config }: Props) {
         {/* Brand */}
         <div className="space-y-6">
           <div className="space-y-3">
-            <div className="select-none">
+            <a href="/" className="inline-block select-none">
               <Image
                 src="/logo-kayiratech.png"
                 alt="Kayiratech"
@@ -23,7 +23,7 @@ export default function Footer({ config }: Props) {
                 height={40}
                 className="object-contain mix-blend-multiply"
               />
-            </div>
+            </a>
             <p className="text-sm text-slate-500 leading-relaxed">
               Architecture IT & transformation digitale de haute précision.
             </p>
@@ -52,9 +52,9 @@ export default function Footer({ config }: Props) {
         <div>
           <h4 className="text-[var(--color-on-surface)] font-bold mb-6">Navigation</h4>
           <ul className="space-y-4 text-sm">
-            <li><a href="#" className="text-slate-500 hover:text-[var(--color-primary)] transition-colors">Home</a></li>
-            <li><a href="#expertise" className="text-slate-500 hover:text-[var(--color-primary)] transition-colors">Services</a></li>
-            <li><a href="#about" className="text-slate-500 hover:text-[var(--color-primary)] transition-colors">About</a></li>
+            <li><a href="/" className="text-slate-500 hover:text-[var(--color-primary)] transition-colors">Accueil</a></li>
+            <li><a href="/#expertise" className="text-slate-500 hover:text-[var(--color-primary)] transition-colors">Services</a></li>
+            <li><a href="/#about" className="text-slate-500 hover:text-[var(--color-primary)] transition-colors">À propos</a></li>
           </ul>
         </div>
 
@@ -62,19 +62,23 @@ export default function Footer({ config }: Props) {
         <div>
           <h4 className="text-[var(--color-on-surface)] font-bold mb-6">Légal</h4>
           <ul className="space-y-4 text-sm">
-            <li><a href="#" className="text-slate-500 hover:text-[var(--color-primary)] transition-colors">Privacy Policy</a></li>
-            <li><a href="#" className="text-slate-500 hover:text-[var(--color-primary)] transition-colors">Terms of Service</a></li>
+            <li><a href="/privacy-policy" className="text-slate-500 hover:text-[var(--color-primary)] transition-colors">Politique de confidentialité</a></li>
+            <li><a href="/terms-of-service" className="text-slate-500 hover:text-[var(--color-primary)] transition-colors">Conditions d'utilisation</a></li>
           </ul>
         </div>
 
         {/* Contact */}
         <div>
           <h4 className="text-[var(--color-on-surface)] font-bold mb-6">Contact</h4>
-          <p className="text-sm text-slate-500 leading-relaxed whitespace-pre-line">
-            {adresse}
-            {"\n"}
-            {email}
-          </p>
+          <div className="text-sm text-slate-500 leading-relaxed space-y-1">
+            <p>{adresse}</p>
+            <a
+              href={`mailto:${email}`}
+              className="hover:text-[var(--color-primary)] transition-colors"
+            >
+              {email}
+            </a>
+          </div>
         </div>
       </div>
 
