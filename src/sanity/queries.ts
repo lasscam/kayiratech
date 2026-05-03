@@ -6,6 +6,11 @@ export type Service = {
   description: string;
   icone: string;
   ordre: number;
+  slug?: { current: string };
+  accroche?: string;
+  description_longue?: string;
+  points?: string[];
+  cibles?: string[];
 };
 
 export type Solution = {
@@ -33,7 +38,25 @@ export type SiteConfig = {
 export async function getServices(): Promise<Service[]> {
   return client.fetch(
     `*[_type == "service"] | order(ordre asc) {
-      _id, titre, description, icone, ordre
+      _id, titre, description, icone, ordre, slug, accroche
+    }`
+  );
+}
+
+export async function getServiceBySlug(slug: string): Promise<Service | null> {
+  return client.fetch(
+    `*[_type == "service" && slug.current == $slug][0] {
+      _id, titre, description, icone, ordre, slug,
+      accroche, description_longue, points, cibles
+    }`,
+    { slug }
+  );
+}
+
+export async function getAllServiceSlugs(): Promise<{ slug: string }[]> {
+  return client.fetch(
+    `*[_type == "service" && defined(slug.current)] {
+      "slug": slug.current
     }`
   );
 }

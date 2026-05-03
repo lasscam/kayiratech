@@ -1,11 +1,21 @@
 import { Service } from "@/sanity/queries";
 
+function toSlug(titre: string): string {
+  return titre
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
 // Fallback si Sanity n'est pas encore configuré
 const FALLBACK_SERVICES: Service[] = [
-  { _id: "1", titre: "Développement Logiciel", description: "Solutions applicatives scalables conçues avec les dernières piles technologiques pour répondre à vos défis métiers les plus complexes.", icone: "developer_mode", ordre: 1 },
-  { _id: "2", titre: "Consulting IT", description: "Alignement de votre infrastructure technologique avec vos objectifs stratégiques pour maximiser votre retour sur investissement.", icone: "strategy", ordre: 2 },
-  { _id: "3", titre: "Coaching et Formation", description: "Accompagnement de vos équipes techniques vers l'autonomie et l'adoption des meilleures pratiques agiles et DevOps.", icone: "groups", ordre: 3 },
-  { _id: "4", titre: "Intelligence Artificielle", description: "Intégration de solutions d'IA générative et d'apprentissage automatique pour optimiser vos processus métiers.", icone: "neurology", ordre: 4 },
+  { _id: "1", titre: "Développement Logiciel", description: "Solutions applicatives scalables conçues avec les dernières piles technologiques pour répondre à vos défis métiers les plus complexes.", icone: "developer_mode", ordre: 1, slug: { current: "developpement-logiciel" } },
+  { _id: "2", titre: "Consulting IT", description: "Alignement de votre infrastructure technologique avec vos objectifs stratégiques pour maximiser votre retour sur investissement.", icone: "strategy", ordre: 2, slug: { current: "consulting-it" } },
+  { _id: "3", titre: "Coaching et Formation", description: "Accompagnement de vos équipes techniques vers l'autonomie et l'adoption des meilleures pratiques agiles et DevOps.", icone: "groups", ordre: 3, slug: { current: "coaching-et-formation" } },
+  { _id: "4", titre: "Intelligence Artificielle", description: "Intégration de solutions d'IA générative et d'apprentissage automatique pour optimiser vos processus métiers.", icone: "neurology", ordre: 4, slug: { current: "intelligence-artificielle" } },
 ];
 
 type Props = {
@@ -42,10 +52,13 @@ export default function ServicesSection({ services }: Props) {
               <p className="text-[var(--color-on-surface-variant)] leading-relaxed mb-6">
                 {service.description}
               </p>
-              <div className="flex items-center text-[var(--color-primary)] font-bold gap-2 cursor-pointer group-hover:gap-3 transition-all">
+              <a
+                href={`/services/${service.slug?.current ?? toSlug(service.titre)}`}
+                className="flex items-center text-[var(--color-primary)] font-bold gap-2 group-hover:gap-3 transition-all"
+              >
                 Explorer{" "}
                 <span className="material-symbols-outlined">arrow_forward</span>
-              </div>
+              </a>
             </div>
           ))}
         </div>
