@@ -48,10 +48,10 @@ export async function POST(req: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    await resend.emails.send({
+    const { error: resendError } = await resend.emails.send({
       from: "Kayiratech <contact@kayiratech.com>",
       to: process.env.CONTACT_EMAIL ?? "contact@kayiratech.com",
-      replyTo: email,
+      reply_to: email,
       subject: `[Contact Kayiratech] ${sujet}`,
       html: `
         <div style="font-family: Inter, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -80,6 +80,14 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     });
+
+    if (resendError) {
+      console.error("[contact] Resend error:", resendError);
+      return NextResponse.json(
+        { error: "Erreur lors de l'envoi. Veuillez réessayer." },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (err) {
