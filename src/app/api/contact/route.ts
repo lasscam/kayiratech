@@ -26,23 +26,27 @@ export async function POST(req: NextRequest) {
 
     // Rate limiting via Upstash (optionnel — désactivé si les env vars ne sont pas définies)
     if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
-      const { Ratelimit } = await import("@upstash/ratelimit");
-      const { Redis } = await import("@upstash/redis");
+      try {
+        const { Ratelimit } = await import("@upstash/ratelimit");
+        const { Redis } = await import("@upstash/redis");
 
-      const ratelimit = new Ratelimit({
-        redis: Redis.fromEnv(),
-        limiter: Ratelimit.slidingWindow(5, "1 h"),
-        analytics: true,
-      });
+        const ratelimit = new Ratelimit({
+          redis: Redis.fromEnv(),
+          limiter: Ratelimit.slidingWindow(5, "1 h"),
+          analytics: true,
+        });
 
-      const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
-      const { success } = await ratelimit.limit(ip);
+        const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
+        const { success } = await ratelimit.limit(ip);
 
-      if (!success) {
-        return NextResponse.json(
-          { error: "Trop de requêtes. Veuillez réessayer plus tard." },
-          { status: 429 }
-        );
+        if (!success) {
+          return NextResponse.json(
+            { error: "Trop de requêtes. Veuillez réessayer plus tard." },
+            { status: 429 }
+          );
+        }
+      } catch (rateLimitErr) {
+        console.error("[contact] Rate limit error (skipped):", rateLimitErr);
       }
     }
 
