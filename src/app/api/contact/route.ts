@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     const { error: resendError } = await resend.emails.send({
       from: "Kayiratech <contact@kayiratech.com>",
       to: process.env.CONTACT_EMAIL ?? "contact@kayiratech.com",
-      reply_to: email,
+      replyTo: email,
       subject: `[Contact Kayiratech] ${sujet}`,
       html: `
         <div style="font-family: Inter, sans-serif; max-width: 600px; margin: 0 auto;">
